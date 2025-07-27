@@ -16,7 +16,7 @@
     "test:ui": "vitest --ui",
     "format": "biome format --write .",
     "lint": "biome lint --apply .",
-    "biome:check": "biome check --apply .",
+    "biome:check": "biome check --write .",
     "prepare": "husky",
     "semantic-release": "semantic-release"
   },
@@ -59,7 +59,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "biome check --apply"
+      "biome check --write "
     ]
   }
 }

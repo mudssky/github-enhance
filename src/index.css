@@ -1,10 +1,10 @@
 /* @import 'tailwindcss'; */
 @layer theme, base, components, utilities;
-@import 'tailwindcss/theme.css' layer(theme);
+@import "tailwindcss/theme.css" layer(theme);
 /* 油猴脚本必须禁用，避免影响原来网页的样式 */
 /* @import "tailwindcss/preflight.css" layer(base); */
-@import 'tailwindcss/utilities.css' layer(utilities);
-@import 'tw-animate-css';
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
