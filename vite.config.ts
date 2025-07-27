@@ -20,6 +20,7 @@ export default defineConfig({
         version: packageJson.version,
         license: packageJson.license,
         'run-at': 'document-end',
+        grant: ['GM_getValue', 'GM_setValue'],
         homepage: packageJson.homepage,
         supportURL: `${packageJson.homepage}/issues`,
         updateURL: `${packageJson.homepage}/releases/latest/download/github-enhance.user.js`,
