@@ -90,6 +90,9 @@ importers:
       preact-devtools:
         specifier: ^0.0.1
         version: 0.0.1
+      semantic-release:
+        specifier: ^24.2.7
+        version: 24.2.7(typescript@5.8.3)
       tailwindcss:
         specifier: ^4.1.11
         version: 4.1.11
