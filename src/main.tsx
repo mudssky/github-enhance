@@ -2,9 +2,13 @@ import { render } from 'react'
 import { GitHubEnhancer } from '@/components/GitHubEnhancer'
 import { log } from '@/lib/utils'
 import './index.css'
+import { $, debounce } from '@mudssky/jsutils'
 
 // GitHub增强脚本 - 添加跳转到其他分析、阅读或开发站点的功能
 log('GitHubEnhance 脚本开始运行')
+const areaDom = document.querySelector(
+  '#repo-content-pjax-container [data-target="react-partial.reactRoot"]',
+)
 
 // 等待页面加载完成后再注入组件
 function initializeEnhancer() {
@@ -19,9 +23,8 @@ function initializeEnhancer() {
   const checkAndInject = () => {
     log('开始查找目标元素...')
 
-    const buttons = document.querySelectorAll(
-      '#repo-content-pjax-container [data-target="react-partial.reactRoot"] button',
-    )
+    // biome-ignore lint/style/noNonNullAssertion: areaDom会确保存在
+    const buttons = areaDom!.querySelectorAll('button')
     const codeButton = Array.from(buttons).find((button) => {
       if (button.textContent === 'Code') {
         log('找到目标元素:', button)
@@ -54,26 +57,15 @@ function initializeEnhancer() {
 
   checkAndInject()
 }
-
-// 页面加载完成后初始化
-log('检查document.readyState:', document.readyState)
-if (document.readyState === 'loading') {
-  log('DOMContentLoaded事件监听器已添加')
-  document.addEventListener('DOMContentLoaded', initializeEnhancer)
-} else {
-  log('页面已加载，直接初始化增强功能')
-  initializeEnhancer()
+const debouncedInitializeEnhancer = debounce(initializeEnhancer, 500)
+function main() {
+  if (!areaDom) {
+    log('未找到目标区域元素')
+    return
+  }
+  new MutationObserver(() => {
+    debouncedInitializeEnhancer()
+  }).observe(areaDom, { subtree: true, childList: true })
 }
 
-// 监听页面变化（GitHub是SPA）
-const lastUrl = location.href
-log('开始监听URL变化，初始URL:', lastUrl)
-// new MutationObserver(() => {
-//   const url = location.href
-//   if (url !== lastUrl) {
-//     log('URL发生变化:', lastUrl, '->', url)
-//     lastUrl = url
-//     log('延迟1秒后重新初始化增强功能...')
-//     setTimeout(initializeEnhancer, 1000) // 给页面一些时间来渲染
-//   }
-// }).observe(document, { subtree: true, childList: true })
+main()
