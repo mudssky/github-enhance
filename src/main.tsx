@@ -1,11 +1,39 @@
 import { render } from 'react'
 import { GitHubEnhancer } from '@/components/GitHubEnhancer'
-import { log } from '@/lib/utils'
+import {
+  getDebugModeStatus,
+  isDebugMode,
+  log,
+  showDebugHelp,
+  toggleDebugMode,
+} from '@/lib/utils'
 import './index.css'
 import { $, debounce } from '@mudssky/jsutils'
 
 // GitHub增强脚本 - 添加跳转到其他分析、阅读或开发站点的功能
 log('GitHubEnhance 脚本开始运行')
+
+// 将调试模式相关函数暴露到全局对象，方便在控制台中使用
+if (typeof window !== 'undefined') {
+  window.GitHubEnhance = {
+    toggleDebugMode,
+    getDebugModeStatus,
+    showDebugHelp,
+    isDebugMode,
+    version: '1.0.0',
+  }
+
+  // 在控制台显示调试模式帮助信息
+  if (isDebugMode()) {
+    console.log(
+      '[GitHubEnhance] 调试模式已开启，输入 window.GitHubEnhance.showDebugHelp() 查看帮助',
+    )
+  } else {
+    console.log(
+      '[GitHubEnhance] 输入 window.GitHubEnhance.toggleDebugMode(true) 开启调试模式',
+    )
+  }
+}
 const areaDom = document.querySelector(
   '#repo-content-pjax-container [data-target="react-partial.reactRoot"]',
 )
