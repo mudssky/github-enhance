@@ -65,7 +65,7 @@ function initializeEnhancer() {
       const container = document.createElement('div')
       container.id = 'github-enhancer-root'
       container.style.display = 'inline-block'
-      container.style.marginLeft = '8px'
+      container.style.marginLeft = '4px'
 
       log('创建并注入GitHubEnhancer组件容器')
 
