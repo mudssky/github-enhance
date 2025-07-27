@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/mudssky/github-enhance/compare/v1.0.0...v1.1.0) (2025-07-27)
+
+
+### Features
+
+* **调试:** 添加调试模式功能及相关工具函数 ([94647ae](https://github.com/mudssky/github-enhance/commit/94647ae320253649b5c941d3dd002f0c12468478))
+
 # 1.0.0 (2025-07-27)
 
 
