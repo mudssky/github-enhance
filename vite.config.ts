@@ -2,7 +2,7 @@ import path from 'node:path'
 import preact from '@preact/preset-vite'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
-import monkey, { cdn } from 'vite-plugin-monkey'
+import monkey from 'vite-plugin-monkey'
 import packageJson from './package.json'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,11 +28,55 @@ export default defineConfig({
       },
       build: {
         externalGlobals: {
-          preact: cdn.jsdelivr('preact', 'dist/preact.min.js'),
+          // preact: cdn.jsdelivr('preact', 'dist/preact.umd.js'),
+          // clsx: cdn.jsdelivr('clsx', 'dist/clsx.min.js'),
+          // 'tailwind-merge': cdn.jsdelivr(
+          //   'tailwind-merge',
+          //   'dist/tailwind-merge.min.js'
+          // ),
+          // 'class-variance-authority': cdn.jsdelivr(
+          //   'class-variance-authority',
+          //   'dist/index.js'
+          // ),
+          // 'lucide-react': cdn.jsdelivr(
+          //   'lucide-react',
+          //   'dist/umd/lucide-react.min.js'
+          // ),
+          // 按需加载esm可以不打包
+          // '@mudssky/jsutils': cdn.jsdelivr(
+          //   '@mudssky/jsutils',
+          //   'dist/umd/index.js'
+          // ),
         },
+        // externalResource
       },
     }),
   ],
+  build: {
+    assetsDir: 'assets',
+    minify: false,
+    cssCodeSplit: false,
+    // cssMinify: false,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+
+          return null
+        },
+        assetFileNames: (assetInfo) => {
+          // console.log({ assetInfo })
+
+          if (assetInfo.names?.[0]?.endsWith('.css')) {
+            return 'css/style.css'
+          }
+          return '[name].[hash].[ext]'
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       react: 'preact/compat',
