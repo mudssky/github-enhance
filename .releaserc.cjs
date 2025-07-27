@@ -30,9 +30,9 @@ module.exports = {
       {
         assets: [
           {
-            path: 'dist/highlight-keywords.user.js',
-            name: 'highlight-keywords.user.js',
-            label: 'Userscript File'
+            path: 'dist/github-enhance.user.js',
+            name: 'github-enhance.user.js',
+            label: 'GitHub Enhance Userscript'
           }
         ]
       }

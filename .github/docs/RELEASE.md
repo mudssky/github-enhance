@@ -32,7 +32,7 @@
    - 确定新版本号
    - 构建项目
    - 创建 GitHub Release
-   - 上传 `highlight-keywords.user.js` 文件
+   - 上传 `github-enhance.user.js` 文件
 
 ## 手动发布（本地）
 
