@@ -2,7 +2,7 @@ import path from 'node:path'
 import preact from '@preact/preset-vite'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
-import monkey from 'vite-plugin-monkey'
+import monkey, { cdn } from 'vite-plugin-monkey'
 import packageJson from './package.json'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,9 +27,9 @@ export default defineConfig({
         downloadURL: `${packageJson.homepage}/releases/latest/download/github-enhance.user.js`,
       },
       build: {
-        // externalGlobals: {
-        //   preact: cdn.jsdelivr('preact', 'dist/preact.min.js'),
-        // },
+        externalGlobals: {
+          preact: cdn.jsdelivr('preact', 'dist/preact.min.js'),
+        },
       },
     }),
   ],
