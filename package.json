@@ -43,7 +43,6 @@
     "@tailwindcss/vite": "^4.1.11",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/preact": "^3.2.4",
-    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.1.0",
     "husky": "^9.1.7",
@@ -57,6 +56,12 @@
     "vite": "^7.0.5",
     "vite-plugin-monkey": "^6.0.0",
     "vitest": "^3.2.4"
+  },
+  "optionalDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^4.7.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
