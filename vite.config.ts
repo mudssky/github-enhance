@@ -1,5 +1,6 @@
 import path from 'node:path'
 import preact from '@preact/preset-vite'
+// import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import monkey from 'vite-plugin-monkey'
@@ -8,6 +9,7 @@ import packageJson from './package.json'
 export default defineConfig({
   plugins: [
     preact(),
+    // react(),
     tailwindcss(),
     monkey({
       entry: 'src/main.tsx',
@@ -48,34 +50,11 @@ export default defineConfig({
           //   'dist/umd/index.js'
           // ),
         },
-        // externalResource
       },
     }),
   ],
   build: {
-    assetsDir: 'assets',
-    minify: false,
-    cssCodeSplit: false,
-    // cssMinify: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor'
-          }
-
-          return null
-        },
-        assetFileNames: (assetInfo) => {
-          // console.log({ assetInfo })
-
-          if (assetInfo.names?.[0]?.endsWith('.css')) {
-            return 'css/style.css'
-          }
-          return '[name].[hash].[ext]'
-        },
-      },
-    },
+    minify: true,
   },
   resolve: {
     alias: {
