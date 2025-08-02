@@ -8,7 +8,34 @@ import {
   toggleDebugMode,
 } from '@/lib/utils'
 import './index.css'
-import { $, debounce } from '@mudssky/jsutils'
+import { debounce } from '@mudssky/jsutils'
+
+// Tailwind样式占位符 - 构建时会被替换为实际的样式内容
+export const TAILWIND_STYLES = `TAILWIND_STYLES_PLACEHOLDER`
+
+/**
+ * 创建带有样式隔离的Shadow DOM容器
+ * @param element 目标元素
+ * @returns Shadow Root
+ */
+function createStyledShadowDOM(element: HTMLElement): ShadowRoot {
+  const shadowRoot = element.attachShadow({ mode: 'open' })
+
+  // 注入Tailwind样式到Shadow DOM
+  if (TAILWIND_STYLES && typeof TAILWIND_STYLES === 'string') {
+    const styleContainer = document.createElement('div')
+    styleContainer.innerHTML = TAILWIND_STYLES
+    const styleElement = styleContainer.firstElementChild
+    if (styleElement) {
+      shadowRoot.appendChild(styleElement)
+      log('Tailwind样式已注入到Shadow DOM')
+    }
+  } else {
+    log('未找到Tailwind样式，使用默认样式')
+  }
+
+  return shadowRoot
+}
 
 // GitHub增强脚本 - 添加跳转到其他分析、阅读或开发站点的功能
 log('GitHubEnhance 脚本开始运行')
@@ -71,10 +98,16 @@ function initializeEnhancer() {
 
       // 插入到目标元素旁边
       codeButton.after(container)
-      // document.body.appendChild(container)
 
-      log('开始渲染GitHubEnhancer组件')
-      render(<GitHubEnhancer />, container)
+      // 创建Shadow DOM以实现样式隔离
+      const shadowRoot = createStyledShadowDOM(container)
+
+      // 创建React渲染容器
+      const reactContainer = document.createElement('div')
+      shadowRoot.appendChild(reactContainer)
+
+      log('开始渲染GitHubEnhancer组件到Shadow DOM')
+      render(<GitHubEnhancer />, reactContainer)
       log('GitHubEnhancer组件渲染完成')
     } else {
       log('目标元素未找到或组件已存在，继续等待...')

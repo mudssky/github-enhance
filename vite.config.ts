@@ -5,12 +5,22 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import monkey from 'vite-plugin-monkey'
 import packageJson from './package.json'
+import { tailwindStyleInjector } from './viteplugins/vite-plugin-monkey-style-injector'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // Inspect({
+    //   build: true,
+    //   outputDir: '.vite-inspect',
+    // }),
     preact(),
     // react(),
     tailwindcss(),
+    tailwindStyleInjector({
+      placeholder: 'TAILWIND_STYLES_PLACEHOLDER',
+      // cssOutputPath: './dist/style.css',
+    }),
     monkey({
       entry: 'src/main.tsx',
       userscript: {
