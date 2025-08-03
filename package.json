@@ -1,7 +1,7 @@
 {
   "name": "github-enhance",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "homepage": "https://github.com/mudssky/github-enhance",
   "description": "github增强体验，添加跳转deepwiki和zread",

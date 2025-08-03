@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/mudssky/github-enhance/compare/v1.1.0...v1.2.0) (2025-08-03)
+
+
+### Features
+
+* **样式注入:** 添加Tailwind样式注入插件支持Shadow DOM隔离 ([7035cfa](https://github.com/mudssky/github-enhance/commit/7035cfa7de92fda5398c8c7fd4bc091419affe31))
+
 # [1.1.0](https://github.com/mudssky/github-enhance/compare/v1.0.0...v1.1.0) (2025-07-27)
 
 
