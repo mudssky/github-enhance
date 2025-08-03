@@ -17,10 +17,10 @@ export default defineConfig({
     preact(),
     // react(),
     tailwindcss(),
-    tailwindStyleInjector({
-      placeholder: 'TAILWIND_STYLES_PLACEHOLDER',
-      // cssOutputPath: './dist/style.css',
-    }),
+    // tailwindStyleInjector({
+    //   placeholder: 'TAILWIND_STYLES_PLACEHOLDER',
+    //   // cssOutputPath: './dist/style.css',
+    // }),
     monkey({
       entry: 'src/main.tsx',
       userscript: {

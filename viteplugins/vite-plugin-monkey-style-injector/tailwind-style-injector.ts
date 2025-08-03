@@ -52,19 +52,8 @@ export function tailwindStyleInjector(
         return
       }
 
-      // 处理CSS内容：压缩和转义
-      const processedCss = cssContent
-
-      // 转义CSS内容中的特殊字符，准备注入到JS中
-      const escapedCss = processedCss
-        .replace(/\\/g, '\\\\') // 转义反斜杠
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
-        .replace(/\n/g, '\\n')
-        .replace(/\r/g, '\\r')
-
       // 创建style标签字符串
-      const styleTag = `<style>${escapedCss}</style>`
+      const styleTag = cssContent
 
       // 在所有JS文件中替换占位符
       for (const [fileName, chunk] of Object.entries(bundle)) {

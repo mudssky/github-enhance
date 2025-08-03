@@ -11,6 +11,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "preview:rebuild": "pnpm build && pnpm preview",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",

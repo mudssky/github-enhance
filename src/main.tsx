@@ -20,15 +20,24 @@ export const TAILWIND_STYLES = `TAILWIND_STYLES_PLACEHOLDER`
  */
 function createStyledShadowDOM(element: HTMLElement): ShadowRoot {
   const shadowRoot = element.attachShadow({ mode: 'open' })
+  console.log({ TAILWIND_STYLES })
 
   // 注入Tailwind样式到Shadow DOM
   if (TAILWIND_STYLES && typeof TAILWIND_STYLES === 'string') {
-    const styleContainer = document.createElement('div')
-    styleContainer.innerHTML = TAILWIND_STYLES
-    const styleElement = styleContainer.firstElementChild
-    if (styleElement) {
+    // 检查是否是完整的style标签
+    if (
+      TAILWIND_STYLES.trim().startsWith('<style>') &&
+      TAILWIND_STYLES.trim().endsWith('</style>')
+    ) {
+      // 如果是完整的style标签，直接设置innerHTML
+      shadowRoot.innerHTML = TAILWIND_STYLES
+      log('Tailwind样式(完整style标签)已注入到Shadow DOM')
+    } else {
+      // 如果只是CSS内容，创建style元素包装
+      const styleElement = document.createElement('style')
+      styleElement.textContent = TAILWIND_STYLES
       shadowRoot.appendChild(styleElement)
-      log('Tailwind样式已注入到Shadow DOM')
+      log('Tailwind样式(CSS内容)已注入到Shadow DOM')
     }
   } else {
     log('未找到Tailwind样式，使用默认样式')
@@ -98,16 +107,20 @@ function initializeEnhancer() {
 
       // 插入到目标元素旁边
       codeButton.after(container)
+      // if (import.meta.env.DEV) {
+      // log('开发模式下直接渲染组件')
+      render(<GitHubEnhancer />, container)
+      // } else {
+      //   // 创建Shadow DOM以实现样式隔离
+      //   const shadowRoot = createStyledShadowDOM(container)
 
-      // 创建Shadow DOM以实现样式隔离
-      const shadowRoot = createStyledShadowDOM(container)
+      //   // 创建React渲染容器
+      //   const reactContainer = document.createElement('div')
+      //   shadowRoot.appendChild(reactContainer)
+      //   log('开始渲染GitHubEnhancer组件到Shadow DOM')
+      //   render(<GitHubEnhancer />, reactContainer)
+      // }
 
-      // 创建React渲染容器
-      const reactContainer = document.createElement('div')
-      shadowRoot.appendChild(reactContainer)
-
-      log('开始渲染GitHubEnhancer组件到Shadow DOM')
-      render(<GitHubEnhancer />, reactContainer)
       log('GitHubEnhancer组件渲染完成')
     } else {
       log('目标元素未找到或组件已存在，继续等待...')
